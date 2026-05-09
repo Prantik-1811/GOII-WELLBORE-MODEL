@@ -15,25 +15,34 @@ The primary predictive signal is derived from the relative change in distance be
 - `AI_wellbore_geology_prediction_task_en.pptx`: The presentation file explaining the methodology and results in detail.
 - `sample_submission.csv`: A sample format of the prediction output.
 
-> **Note:** The `train/` and `test/` data directories are excluded via `.gitignore` due to file size limits. Please download them from the competition page and place them in the root directory to run the notebook.
+## How to Run & Display Results
 
-## Dashboard Visualization
+**1. Set up the Data**
+The `train/` and `test/` data directories are excluded from this repository via `.gitignore` due to file size limits. 
+- Download the competition dataset from Kaggle.
+- Extract the `train` and `test` folders directly into the root directory of this project.
 
-To visualize the results without needing a local web server:
-1. Open the `dashboard` folder.
-2. Double-click on `index.html` to open it in your default web browser.
-3. The dashboard will automatically read from `dashboard/data.js` to plot the TVT drift profile for each well ID.
+**2. Run the Predictive Model**
+- Open `rogii-wellbore-geology-prediction (2).ipynb` in Jupyter Notebook, JupyterLab, or your preferred IDE.
+- Ensure you have the required Python packages installed (e.g., `pandas`, `lightgbm`).
+- Run all cells in the notebook. This will process the data, train the model, and generate your predictions.
+
+**3. Visualize the Results**
+You can visually evaluate the predicted TVT drift profiles using the included custom dashboard. No local web server is required!
+- Navigate to the `dashboard/` folder.
+- Double-click on `index.html` to open it in your default web browser.
+- The dashboard will automatically read the data from `dashboard/data.js` and plot the results for each well.
 
 ### Updating Dashboard Data
 
-If you run the Jupyter Notebook to generate new predictions and want the dashboard to automatically update, append the following code snippet to the very end of the notebook:
+If you generate new predictions in the notebook and want the dashboard to automatically update, append the following code snippet to the very end of your notebook. This will overwrite the dashboard's javascript data file and gracefully bypass browser local-file CORS restrictions:
 
 ```python
 # Assuming your final output is saved to 'submission.csv'
 with open('submission.csv', 'r') as f:
     csv_content = f.read()
 
-# Overwrite the dashboard's javascript data file to bypass browser local-file CORS
+# Overwrite the dashboard's javascript data file
 with open('dashboard/data.js', 'w') as f:
     f.write(f'const windowCsvData = `{csv_content}`;')
 ```
