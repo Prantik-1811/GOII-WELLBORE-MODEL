@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROGII Wellbore Geology Prediction Dashboard</title>
+    <!-- Modern professional font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Wellbore Prediction Results</h1>
+                <p class="subtitle">True Vertical Thickness (TVT) Drift Analysis</p>
+            </div>
+            <div class="controls">
+                <label for="well-select" class="control-label">Select Well ID:</label>
+                <select id="well-select" class="well-dropdown" disabled>
+                    <option value="">Loading data...</option>
+                </select>
+                <!-- Fallback in case local fetch fails due to CORS -->
+                <div class="fallback-upload" id="fallback-upload-container" style="display: none;">
+                    <label for="csv-upload" class="upload-btn">Upload CSV Manually</label>
+                    <input type="file" id="csv-upload" accept=".csv" />
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Summary Stats -->
+            <section class="metrics-grid" id="metrics-container">
+                <div class="metric-card">
+                    <h3>Total Wells</h3>
+                    <p class="metric-value" id="metric-total-wells">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Total Predictions</h3>
+                    <p class="metric-value" id="metric-total-preds">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Max TVT Drift (Current Well)</h3>
+                    <p class="metric-value" id="metric-max-tvt">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Min TVT Drift (Current Well)</h3>
+                    <p class="metric-value" id="metric-min-tvt">-</p>
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="chart-section">
+                <div class="chart-header">
+                    <h2>TVT Drift Profile</h2>
+                    <span id="loading-indicator" class="loading">Loading data...</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="tvtChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
